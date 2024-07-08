@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accueil</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .navbar {
+            height: 100vh;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            padding-top: 20px;
+        }
+        .navbar a {
+            display: block;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            color: white;
+        }
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+        }
+        td {
+            background-color: #2a2a2a;
+        }
+        button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .pagination a {
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            margin: 0 4px;
+            background-color: #333;
+            border-radius: 4px;
+        }
+        .pagination a:hover {
+            background-color: #575757;
+        }
+        .pagination .current {
+            background-color: #454e57;
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem 2rem;
+          }
+        
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="{% url 'accueil' %}">Accueil</a>
+        <a href="{% url 'materiel' %}">Matériel</a>
+        <a href="{% url 'inventaire' %}">Inventaire</a>
+        <a href="{% url 'deplacement' %}">Déplacement</a>
+    </div> 
+
+    <div class="main-content">
+        <h2>Accueil</h2>
+        
+        {% if page_obj %}
+    <table border="1">
+        <tr>
+            <th>Localisation</th>
+            <th>Nom</th>
+           
+        </tr>
+        {% for chantier in page_obj %}
+        <tr>
+            <td>{{ chantier.nom }}</td>
+            <td>{{ chantier.localisation }}</td>
+            
+        </tr>
+        {% endfor %}
+    </table>
+   
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">First</a>
+            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
+        {% endif %}
+        <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">Next</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>No data available.</p>
+    {% endif %}
+        
+    </div>
+
+    
+
+</body>
+</html>

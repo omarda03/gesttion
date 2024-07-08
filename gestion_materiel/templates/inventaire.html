@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventaire des Matériaux</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1a1a1a;
+            color: #ffffff;
+        }
+        .navbar {
+            height: 100vh;
+            width: 200px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background-color: #333;
+            padding-top: 20px;
+        }
+        .navbar a {
+            display: block;
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #575757;
+            color: white;
+        }
+        .main-content {
+            margin-left: 220px;
+            padding: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        table, th, td {
+            border: 1px solid #444;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+        }
+        td {
+            background-color: #2a2a2a;
+        }
+        button {
+            padding: 10px 15px;
+            margin-right: 10px;
+            background-color: #007bff;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <a href="{% url 'accueil' %}">Accueil</a>
+        <a href="{% url 'materiel' %}">Matériel</a>
+        <a href="{% url 'inventaire' %}">Inventaire</a>
+        <a href="{% url 'deplacement' %}">Déplacement</a>
+    </div> 
+    <div class="main-content">
+        <h2>Inventaire des Matériaux</h2>
+        
+        <table id="inventoryTable">
+            <thead>
+                <tr>
+                    <th>Désignation Matériel</th>
+                    <th>Caractéristique technique</th>
+                    <th>Quantité</th>
+                    <th>Prix Unité HT</th>
+                    <th>Prix Unité TTC</th>
+                    <th>Prix Total TTC</th>
+                    <th>Date d'Entrée</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in materiel_list %}
+                <tr>
+                    <td>{{ item.designation }}</td>
+                    <td>{{ item.description }}</td>
+                    <td>{{ item.quantite }}</td>
+                    <td>{{ item.prix_unit_ht|floatformat:2 }}</td>
+                    <td>{{ item.prix_unit_ttc|floatformat:2 }}</td>
+                    <td>{{ item.prix_total_ttc|floatformat:2 }}</td>
+                    <td>{{ item.date_entree }}</td>
+                    <td>{{ item.note }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="5" style="text-align: right;">Total TTC:</td>
+                    <td>{{ total_ttc|floatformat:2 }}</td>
+                    <td colspan="2"></td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+
+</body>
+</html>
