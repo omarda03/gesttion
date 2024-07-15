@@ -123,20 +123,10 @@ STATIC_URL = '/static/'
 # STATICFILES_DIRS = [
 #     os.path.join(BASE_DIR, 'static'),
 # ]
-STATICFILES_DIRS = [BASE_DIR / 'static']
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
 
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-
-JAZZMIN_SETTINGS = {
-    'site_title' : 'AMG',
-    'site_header' : 'AMG BUILDING',
-    'site_logo' : 'static/assets/amg-logo.jpg',
-}
+JAZZMIN_SETTINGS = JAZZMIN_SETTINGS

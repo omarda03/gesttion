@@ -91,23 +91,23 @@
                 </tr>
             </thead>
             <tbody>
-                {% for item in materiel_list %}
+                {% for materiel in materiel_list %}
                 <tr>
-                    <td>{{ item.designation }}</td>
-                    <td>{{ item.description }}</td>
-                    <td>{{ item.quantite }}</td>
-                    <td>{{ item.prix_unit_ht|floatformat:2 }}</td>
-                    <td>{{ item.prix_unit_ttc|floatformat:2 }}</td>
-                    <td>{{ item.prix_total_ttc|floatformat:2 }}</td>
-                    <td>{{ item.date_entree }}</td>
-                    <td>{{ item.note }}</td>
+                    <td>{{ materiel.designation }}</td>
+                    <td>{{ materiel.description }}</td>
+                    <td>{{ materiel.quantite }}</td>
+                    <td>{{ materiel.prix_unit_ht }}</td>
+                    <td>{{ materiel.prix_unit_ttc }}</td>
+                    <td>{{ materiel.prix_total_ttc }}</td>
+                    <td>{{ materiel.date_entree }}</td>
+                    <td>{{ materiel.note }}</td>
                 </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
                 <tr>
                     <td colspan="5" style="text-align: right;">Total TTC:</td>
-                    <td>{{ total_ttc|floatformat:2 }}</td>
+                    <td id="totalTTC">{{ total_ttc|floatformat:2 }}</td>
                     <td colspan="2"></td>
                 </tr>
             </tfoot>

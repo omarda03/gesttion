@@ -1,21 +1,35 @@
-# deplacement/models.py
-
 from django.db import models
 
 class Chantier(models.Model):
     nom = models.CharField(max_length=255)
-    localisation = models.CharField(max_length=255, null=True, blank=True)
-    quantite = models.IntegerField(default=0)
+    localisation = models.TextField()
+
+    def __str__(self):
+        return self.nom
 
 class Materiel(models.Model):
-    nom = models.CharField(max_length=255)
-    description = models.TextField(null=True, blank=True)
-    chantier = models.ForeignKey(Chantier, on_delete=models.CASCADE, null=True, default=None)  # Allow null values or provide a default Chantier instance
-    quantite = models.IntegerField(default=0)
+    nom = models.ForeignKey(Chantier, related_name='Materiels', on_delete=models.CASCADE)
+    designation = models.CharField(max_length=255)
+    description = models.CharField(max_length=255, blank=True, null=True)
+    quantite = models.IntegerField()  
+    prix_unit_ht = models.DecimalField(max_digits=10, decimal_places=2) 
+    prix_unit_ttc = models.DecimalField(max_digits=10, decimal_places=2)  
+    prix_total_ttc = models.DecimalField(max_digits=10, decimal_places=2)  
+    date_entree = models.DateField()  
+    note = models.TextField()  
+
+    def __str__(self):
+        return f'{str(self.nom)}'
+
+ 
+
 
 class Deplacement(models.Model):
+    chantier_depart = models.ForeignKey(Chantier, related_name='departs', on_delete=models.CASCADE)
     materiel = models.ForeignKey(Materiel, on_delete=models.CASCADE)
-    chantier_depart = models.ForeignKey(Chantier, related_name='depart', on_delete=models.CASCADE)
-    chantier_destination = models.ForeignKey(Chantier, related_name='destination', on_delete=models.CASCADE)
+    description = models.CharField(max_length=255, blank=True, null=True)
     quantite = models.IntegerField()
-    date_deplacement = models.DateTimeField(auto_now_add=True)
+    chantier_destination = models.ForeignKey(Chantier, related_name='destinations', on_delete=models.CASCADE)
+    date_deplacement = models.DateField(auto_now_add=True)
+    def __str__(self):
+        return f'{str(self.chantier_depart)}'
