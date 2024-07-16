@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404  # Ajout de get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Chantier, Materiel, Deplacement
 from .forms import DeplacementForm
@@ -66,3 +66,9 @@ def materiel(request):
 
 def entree(request):
     return render(request, 'materiel.html')
+
+
+def materiaux_par_chantier(request, chantier_id):
+    chantier = get_object_or_404(Chantier, id=chantier_id)
+    materiaux = Materiel.objects.filter(chantier=chantier)
+    return render(request, 'materiaux_par_chantier.html', {'chantier': chantier, 'materiaux': materiaux})

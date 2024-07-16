@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
+    <title>Matériaux par Chantier</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -86,14 +86,7 @@
             font-weight: bold;
             padding: 0.5rem 2rem;
         }
-        a.nom-chantier {
-            color: white;
-            text-decoration: none;
-        }
-        a.nom-chantier:hover {
-            color: #007bff;
-            text-decoration: none;
-        }
+
     </style>
 </head>
 <body>
@@ -106,37 +99,31 @@
     </div> 
 
     <div class="main-content">
-        <h2>Accueil</h2>
-
-        {% if page_obj %}
-    <table border="1">
-        <tr>
-            <th>Nom</th>
-            <th>Localisation</th>
-        </tr>
-        {% for chantier in page_obj %}
-        <tr>
-            <td><a href="{% url 'materiaux_par_chantier' chantier.id %}" class="nom-chantier">{{ chantier.nom }}</a></td>
-            <td>{{ chantier.localisation }}</td>
-        </tr>
-        {% endfor %}
-    </table>
-
-    <div class="pagination">
-        {% if page_obj.has_previous %}
-            <a href="?page=1">First</a>
-            <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-        {% endif %}
-        <span class="current">Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">Next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-        {% endif %}
-    </div>
-    {% else %}
-    <p>No data available.</p>
-    {% endif %}
-
+        <h2>{{ chantier.nom }}</h2>
+        <table>
+            <tr>
+                <th>Désignation</th>
+                <th>Description</th>
+                <th>Quantité</th>
+                <th>Prix Unitaire HT</th>
+                <th>Prix Unitaire TTC</th>
+                <th>Prix Total TTC</th>
+                <th>Date d'entrée</th>
+                <th>Note</th>
+            </tr>
+            {% for materiel in materiaux %}
+            <tr>
+                <td>{{ materiel.designation }}</td>
+                <td>{{ materiel.description }}</td>
+                <td>{{ materiel.quantite }}</td>
+                <td>{{ materiel.prix_unit_ht }}</td>
+                <td>{{ materiel.prix_unit_ttc }}</td>
+                <td>{{ materiel.prix_total_ttc }}</td>
+                <td>{{ materiel.date_entree }}</td>
+                <td>{{ materiel.note }}</td>
+            </tr>
+            {% endfor %}
+        </table>
     </div>
 
 </body>

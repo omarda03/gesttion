@@ -1,10 +1,10 @@
 from django.urls import path
-from .views import accueil,inventaire,materiel,deplacement
+from . import views
 
 urlpatterns = [
-    path('deplacement/', deplacement, name='deplacement'),
-    path('', accueil, name='accueil'),
-    path('inventaire/', inventaire, name='inventaire'),
-    path('materiel/', materiel, name='materiel'),
-   
+    path('', views.accueil, name='accueil'),
+    path('materiel/', views.materiel, name='materiel'),
+    path('inventaire/', views.inventaire, name='inventaire'),
+    path('deplacement/', views.deplacement, name='deplacement'),
+    path('materiaux_par_chantier/<int:chantier_id>/', views.materiaux_par_chantier, name='materiaux_par_chantier'),
 ]

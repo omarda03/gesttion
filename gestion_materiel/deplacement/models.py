@@ -7,8 +7,9 @@ class Chantier(models.Model):
     def __str__(self):
         return self.nom
 
+
 class Materiel(models.Model):
-    nom = models.ForeignKey(Chantier, related_name='Materiels', on_delete=models.CASCADE)
+    chantier = models.ForeignKey(Chantier, related_name='materiels', on_delete=models.CASCADE)
     designation = models.CharField(max_length=255)
     description = models.CharField(max_length=255, blank=True, null=True)
     quantite = models.IntegerField()  
@@ -19,7 +20,7 @@ class Materiel(models.Model):
     note = models.TextField()  
 
     def __str__(self):
-        return f'{str(self.nom)}'
+        return f'{self.designation}'
 
  
 
