@@ -1,24 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.contrib import messages
+from django.core.exceptions import ValidationError
 from .models import Chantier, Materiel, Deplacement
 from .forms import DeplacementForm
 
-# def deplacement_view(request):
-#     if request.method == 'POST':
-#         form = DeplacementForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             return redirect('deplacement_success')
-#     else:
-#         form = DeplacementForm()
-#     return render(request, 'deplacement_form.html', {'form': form})
-
-# def deplacement_success_view(request):
-#     return render(request, 'deplacement_success.html')
-
 def accueil(request):
     chantier_list = Chantier.objects.all()
-    paginator = Paginator(chantier_list, 10)  
+    paginator = Paginator(chantier_list, 10)
 
     page_number = request.GET.get('page')
     try:
@@ -28,11 +17,27 @@ def accueil(request):
     except EmptyPage:
         page_obj = paginator.page(paginator.num_pages)
 
-    return render(request, 'accueil.html', {'page_obj': page_obj})
+    if request.method == 'POST':
+        form = DeplacementForm(request.POST)
+        if form.is_valid():
+            try:
+                print('Tentative de sauvegarde du déplacement')
+                form.save()
+                messages.success(request, 'Le déplacement a été effectué avec succès.')
+            except ValidationError as e:
+                messages.error(request, str(e))
+            except ValueError as e:
+                messages.error(request, str(e))
+        else:
+            messages.error(request, 'Erreur lors de la validation du formulaire.')
+    else:
+        form = DeplacementForm()
+
+    return render(request, 'accueil.html', {'page_obj': page_obj, 'form': form})
 
 def deplacement(request):
     deplacement_list = Deplacement.objects.all()
-    paginator = Paginator(deplacement_list, 10)  
+    paginator = Paginator(deplacement_list, 10)
 
     page_number = request.GET.get('page')
     try:
@@ -51,7 +56,7 @@ def inventaire(request):
 
 def materiel(request):
     materiel_list = Materiel.objects.all()
-    paginator = Paginator(materiel_list, 10)  
+    paginator = Paginator(materiel_list, 10)
 
     page_number = request.GET.get('page')
     try:
