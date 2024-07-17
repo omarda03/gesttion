@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404  # Ajout de get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import Chantier, Materiel, Deplacement
 from .forms import DeplacementForm
@@ -49,7 +49,6 @@ def inventaire(request):
     total_ttc = sum(materiel.prix_total_ttc for materiel in materiel_list)
     return render(request, 'inventaire.html', {'materiel_list': materiel_list, 'total_ttc': total_ttc})
 
-
 def materiel(request):
     materiel_list = Materiel.objects.all()
     paginator = Paginator(materiel_list, 10)  
@@ -66,7 +65,6 @@ def materiel(request):
 
 def entree(request):
     return render(request, 'materiel.html')
-
 
 def materiaux_par_chantier(request, chantier_id):
     chantier = get_object_or_404(Chantier, id=chantier_id)

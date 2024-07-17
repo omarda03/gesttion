@@ -4,4 +4,4 @@ from .models import Deplacement
 class DeplacementForm(forms.ModelForm):
     class Meta:
         model = Deplacement
-        fields = ['chantier_depart', 'materiel', 'description', 'quantite', 'chantier_destination']
+        fields = ['materiel', 'chantier_depart', 'chantier_destination', 'quantite', 'description']
