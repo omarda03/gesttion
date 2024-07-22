@@ -114,23 +114,7 @@
             </tr>
             {% endfor %}
         </table>
-        <h3>Déplacements vers ce chantier</h3>
-        <table>
-            <tr>
-                <th>Matériel</th>
-                <th>Description</th>
-                <th>Date de Déplacement</th>
-                <th>Quantité</th>
-            </tr>
-            {% for deplacement in deplacements %}
-            <tr>
-                <td>{{ deplacement.materiel.designation }}</td>
-                <td>{{ deplacement.description }}</td>
-                <td>{{ deplacement.date_deplacement }}</td>
-                <td>{{ deplacement.quantite }}</td>
-            </tr>
-            {% endfor %}
-        </table>
+        
     </div>
 
 </body>
