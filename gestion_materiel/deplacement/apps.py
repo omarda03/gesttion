@@ -1,3 +1,4 @@
+# deplacement/apps.py
 from django.apps import AppConfig
 
 class DeplacementConfig(AppConfig):
@@ -5,4 +6,5 @@ class DeplacementConfig(AppConfig):
     name = 'deplacement'
 
     def ready(self):
-        import deplacement.signals  # Assurez-vous que le chemin est correct
+        pass  # Supprimez ou commentez l'importation des signaux
+        # import deplacement.signals

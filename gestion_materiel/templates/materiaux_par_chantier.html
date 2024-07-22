@@ -105,20 +105,29 @@
                 <th>Désignation</th>
                 <th>Description</th>
                 <th>Quantité</th>
-                <th>Prix Unitaire HT</th>
-                <th>Prix Unitaire TTC</th>
-                <th>Date d'entrée</th>
-                <th>Note</th>
             </tr>
             {% for materiel in materiaux %}
             <tr>
                 <td>{{ materiel.designation }}</td>
                 <td>{{ materiel.description }}</td>
                 <td>{{ materiel.quantite }}</td>
-                <td>{{ materiel.prix_unit_ht }}</td>
-                <td>{{ materiel.prix_unit_ttc }}</td>
-                <td>{{ materiel.date_entree }}</td>
-                <td>{{ materiel.note }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h3>Déplacements vers ce chantier</h3>
+        <table>
+            <tr>
+                <th>Matériel</th>
+                <th>Description</th>
+                <th>Date de Déplacement</th>
+                <th>Quantité</th>
+            </tr>
+            {% for deplacement in deplacements %}
+            <tr>
+                <td>{{ deplacement.materiel.designation }}</td>
+                <td>{{ deplacement.description }}</td>
+                <td>{{ deplacement.date_deplacement }}</td>
+                <td>{{ deplacement.quantite }}</td>
             </tr>
             {% endfor %}
         </table>

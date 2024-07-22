@@ -74,4 +74,9 @@ def entree(request):
 def materiaux_par_chantier(request, chantier_id):
     chantier = get_object_or_404(Chantier, id=chantier_id)
     materiaux = Materiel.objects.filter(chantier=chantier)
-    return render(request, 'materiaux_par_chantier.html', {'chantier': chantier, 'materiaux': materiaux})
+    deplacements = Deplacement.objects.filter(chantier_destination=chantier)
+    return render(request, 'materiaux_par_chantier.html', {
+        'chantier': chantier,
+        'materiaux': materiaux,
+        'deplacements': deplacements
+    })
